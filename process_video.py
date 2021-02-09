@@ -20,16 +20,31 @@ def main():
     cap = cv2.VideoCapture('Ball_travel_10fps.mp4')
     # cap = cv2.VideoCapture('Ball_travel_2_updated.mp4')
 
-    row_list = []
-    col_list = []
+    highest_row_list = []
+    lowest_row_list = []
+
+    highest_col_list = []
+    lowest_col_list = []
+
 
     frame_count = 0
     while (cap.isOpened()):
         ret, frame = cap.read()
 
-        # print(type(frame))
-        # print(frame.shape)
-        # print(frame)
+        if frame_count == 0:
+            print("frame size: ", frame.shape)
+            img_height = frame.shape[0]
+            img_width = frame.shape[1]
+
+            my_filename = 'img_size.txt'
+            with open(my_filename, 'w') as f:
+                f.write(str(img_height) + '\n')
+                f.write(str(img_width) + '\n')
+
+
+        if frame is None:
+            print("end of video   reached")
+            break
 
         green_indices = np.where(frame[:, :, 1] < 200)  # where green is less than 200
 
@@ -53,29 +68,17 @@ def main():
         rightmost_col = green_cols[rightmost_col_index]
         # Finally, get average "center" column
         center_col = round((leftmost_col + rightmost_col)/2)
-        print(center_col)
-
-
-
-        # high_center_col = np.argmin(frame[highest_row,:,1])
-        # low_center_col = np.argmin(frame[lowest_row,:,1])
-
-
-        # highest_col = green_cols[highest_row_index]
-        # lowest_col = green_cols[lowest_row_index]
+        # print(center_col)
 
 
         frame[highest_row,center_col,2] = 0
         frame[lowest_row,center_col,2] = 0
 
-        # frame[highest_row_index,highest_col_index,:] = np.array([200,100,0])
-        # frame[lowest_row_index,lowest_col_index,:] = np.array([200,100,0])
+        highest_row_list.append(highest_row)
+        lowest_row_list.append(lowest_row)
 
-        # green_y = np.abs(green_rows - frame.shape[0])
-        # green_x = np.abs(green_cols - frame.shape[1])
-
-
-
+        highest_col_list.append(center_col)
+        lowest_row_list.append(center_col)
 
 
         # cv2.imshow('frame', frame[:, :, 1])
@@ -93,6 +96,29 @@ def main():
 
     cap.release()
     cv2.destroyAllWindows()
+
+    print("hello          ")
+
+    # Save lists to file
+    the_filename = 'highest_row_list.txt'
+    with open(the_filename, 'w') as f:
+        for s in highest_row_list:
+            f.write(str(s) + '\n')
+
+    the_filename = 'lowest_row_list.txt'
+    with open(the_filename, 'w') as f:
+        for s in lowest_row_list:
+            f.write(str(s) + '\n')
+
+    the_filename = 'highest_col_list.txt'
+    with open(the_filename, 'w') as f:
+        for s in highest_col_list:
+            f.write(str(s) + '\n')
+
+    the_filename = 'lowest_col_list.txt'
+    with open(the_filename, 'w') as f:
+        for s in lowest_col_list:
+            f.write(str(s) + '\n')
 
 
 if __name__ == '__main__':
