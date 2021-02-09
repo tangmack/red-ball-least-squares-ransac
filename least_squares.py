@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 with open('highest_row_list.txt', 'r') as f:
     highest_row_strings = [line.rstrip('\n') for line in f]
     highest_row_list = [int(i) for i in highest_row_strings]
@@ -8,7 +10,7 @@ with open('lowest_row_list.txt', 'r') as f:
 
 with open('highest_col_list.txt', 'r') as f:
     center_col_strings = [line.rstrip('\n') for line in f]
-    center_row_list = [int(i) for i in center_col_strings]
+    center_col_list = [int(i) for i in center_col_strings]
 
 with open('img_size.txt', 'r') as f:
     img_sizes_strings = [line.rstrip('\n') for line in f]
@@ -16,7 +18,7 @@ with open('img_size.txt', 'r') as f:
 
 print(highest_row_list)
 print(lowest_row_list)
-print(center_row_list)
+print(center_col_list)
 
 print(highest_row_list)
 
@@ -30,5 +32,17 @@ print(img_height, img_width)
 
 print(img_sizes_strings)
 
+# convert from row column to x y
+y_highest = [abs(n-img_height) for n in highest_row_list]
+y_lowest = [abs(n-img_height) for n in lowest_row_list]
+x_center = [abs(n-img_width) for n in center_col_list]
+print(y_highest)
+
+plt.plot(x_center, y_highest, '.')
+plt.plot(x_center, y_lowest, 'x')
+
+
+plt.ylabel('y_highest')
+plt.show()
 
 
