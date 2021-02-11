@@ -48,17 +48,22 @@ x_squared = np.square(np.array(x_center)).reshape( (len(x_center), 1) ) # reshap
 b_coeffs = np.ones(shape=x_squared.shape)
 
 b_highest = np.array(y_highest).reshape( (len(y_highest),1) )
+b_lowest = np.array(y_lowest).reshape( (len(y_lowest),1) )
 
-A = np.concatenate([x_squared,x_regular,b_coeffs],axis=1)
+A = np.concatenate([x_squared, x_regular, b_coeffs], axis=1)
+print(A.shape)
 
 # params_highest = (ATA)-1  * AT * b
-params_highest = np.linalg.pinv(   np.transpose(A).dot(A)   ).dot(  np.transpose(A).dot(y_highest)  )
+params_highest = np.linalg.pinv(np.transpose(A).dot(A)).dot(np.transpose(A).dot(y_highest))
+params_lowest = np.linalg.pinv(np.transpose(A).dot(A)).dot(np.transpose(A).dot(y_lowest))
 print("params_highest", params_highest)
 
 x_fit_high = np.linspace(0, np.max(x_regular), 1000)
 y_fit_high = params_highest[0] * x_fit_high**2 + params_highest[1] * x_fit_high + params_highest[2]
 
 
+x_fit_low = np.linspace(0, np.max(x_regular), 1000)
+y_fit_low = params_lowest[0] * x_fit_low**2 + params_lowest[1] * x_fit_low + params_lowest[2]
 
 
 
@@ -67,8 +72,6 @@ print(b_highest.shape)
 print(x_squared.shape)
 print(b_coeffs.shape)
 
-A = np.concatenate([x_squared,b_coeffs],axis=1)
-print(A.shape)
 
 
 
@@ -76,6 +79,8 @@ print(A.shape)
 plt.plot(x_center, y_highest, '.')
 plt.plot(x_center, y_lowest, 'x')
 plt.plot(x_fit_high,y_fit_high, '.')
+
+plt.plot(x_fit_low,y_fit_low, '.')
 
 plt.ylabel('y_highest')
 plt.show()
