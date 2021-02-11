@@ -78,17 +78,19 @@ def main():
         lowest_row_list.append(lowest_row)
 
         highest_col_list.append(center_col)
-        lowest_row_list.append(center_col)
+        lowest_col_list.append(center_col)
 
 
         # cv2.imshow('frame', frame[:, :, 1])
-        cv2.imshow('frame', frame)
-        k = cv2.waitKey(0) & 0xFF
-        if k == 115:  # if s key pressed
-            cv2.imwrite('frame' + str(frame_count) + '.png', frame)
-            print("saved!")
-        elif k == ord('q'):
-            break
+
+        ##### Comment/uncomment this block to hide/show images
+        # cv2.imshow('frame', frame)
+        # k = cv2.waitKey(0) & 0xFF
+        # if k == 115:  # if s key pressed
+        #     cv2.imwrite('frame' + str(frame_count) + '.png', frame)
+        #     print("saved!")
+        # elif k == ord('q'):
+        #     break
 
         frame_count += 1
         # if cv2.waitKey(1) & 0xFF == ord('q'):
