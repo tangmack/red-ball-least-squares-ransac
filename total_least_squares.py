@@ -49,39 +49,22 @@ x_regular = np.array(x_center).reshape( (len(x_center), 1))
 b_coeffs = np.ones(shape=x_squared.shape)
 
 X_high = np.concatenate([b_coeffs,x_regular,x_squared],axis=1) # the design matrix
+X_low = np.concatenate([b_coeffs,x_regular,x_squared],axis=1) # the design matrix
+
 
 y_high_n = np.array(y_highest).reshape( ( len(x_center),1 ) )
 y_low_n = np.array(y_lowest).reshape( ( len(x_center),1 ) )
 
 Xy_high = np.concatenate([X_high, y_high_n],axis=1)
-# Xy_high = np.concatenate([x_squared, x_regular, b_coeffs, y_high_n], axis=1)
-# Xy_low = np.concatenate([x_squared, x_regular, b_coeffs, y_low_n], axis=1)
-#
-# print(Xy_high.shape)
-#
-# u_high, s_high, vh_high = np.linalg.svd(Xy_high, full_matrices=True)
-# u_low, s_low, vh_low = np.linalg.svd(Xy_low, full_matrices=True)
-# print(vh_high.shape) # shape should be
-# print(vh_high)
+Xy_low = np.concatenate([X_low, y_low_n],axis=1)
 
 u_high, s_high, vh_high = np.linalg.svd(Xy_high, full_matrices=True)
 V_high = vh_high.T
 
-
-# Vhigh = vh_high.T
-# Vlow = vh_low.T
-
+u_low, s_low, vh_low = np.linalg.svd(Xy_low, full_matrices=True)
+V_low = vh_low.T
 
 ##### For High #####################################################
-# n = 3 # number of parameters
-# m = len(x_center) # number of points
-# v_pq_high = Vhigh[0:n,n] # the first n elements of the (n+1)th column of vh
-# v_qq_high = Vhigh[n,n] # the n+1 element of the n+1 column of vh
-#
-# a_tls_high = -v_pq_high / v_qq_high
-# print("a_tls_high", a_tls_high)
-#
-# v_pq_qq_high = Vhigh[:,n].reshape(n+1,1) # last column (n+1 column)
 n = 3 # number of parameters
 a_tls_high = -V_high[0:n, n] / V_high[n, n]
 a_tls_high = a_tls_high.reshape((len(a_tls_high), 1))
@@ -93,44 +76,44 @@ print(X_high.shape)
 
 y_tls_high = (X_high+Xt_high).dot(a_tls_high)
 
-# plt.plot(x_regular,y_high_n,'.')
-# plt.plot((X_high+Xt_high)[:,1], y_tls_high,'+')
+##### For Low #####################################################
+n = 3 # number of parameters
+a_tls_low = -V_low[0:n, n] / V_low[n, n]
+a_tls_low = a_tls_low.reshape((len(a_tls_low), 1))
+Xtyt_low = -Xy_low.dot(V_low[:,n].reshape(-1,1)).dot( V_low[:,n].reshape(-1,1).T )
 
-plt.plot(x_regular,Xt_high[:,1])
+Xt_low = Xtyt_low[:,0:n]
+print(Xt_low.shape)
+print(X_low.shape)
+
+y_tls_low = (X_low+Xt_low).dot(a_tls_low)
+
+##### Plot #####################################################
+
+plt.plot(x_regular,y_high_n,'.')
+plt.plot((X_high+Xt_high)[:,1], y_tls_high,'+')
+
+plt.plot(x_regular,y_low_n,'.')
+plt.plot((X_low+Xt_low)[:,1], y_tls_low,'x')
+
+# Plot continuous lines from TLS
+x_fit_high = np.linspace(0, np.max(x_regular), 1000)
+# y_fit_high = a_tls_high[0] * x_fit_high**2 + a_tls_high[1] * x_fit_high + a_tls_high[2]
+y_fit_high = a_tls_high[0] + a_tls_high[1] * x_fit_high + a_tls_high[2] * x_fit_high**2
+plt.plot(x_fit_high,y_fit_high,'o')
+
+x_fit_low = np.linspace(0, np.max(x_regular), 1000)
+y_fit_low = a_tls_low[0] + a_tls_low[1] * x_fit_low + a_tls_low[2] * x_fit_low**2
+plt.plot(x_fit_low,y_fit_low,'.')
 
 plt.show()
-
 sys.exit()
 
 
-# Xtilda_ytilda_high = -Xy_high.dot(v_pq_qq_high).dot(v_pq_qq_high.T)
-#
-# # X_high = Xy_high[:,0:n] # all but last column
-# X_tilda_high = Xtilda_ytilda_high[:,0:n]
-#
-# y_tls_high = (X_high + X_tilda_high).dot(a_tls_high)
-# print(y_tls_high.shape)
-
-##### For Low #####################################################
-v_pq_low = Vlow[0:n,n] # the first n elements of the (n+1)th column of vh
-v_qq_low = Vlow[n,n] # the n+1 element of the n+1 column of vh
-
-a_tls_low = -v_pq_low / v_qq_low
-
-v_pq_qq_low = Vlow[:,n].reshape(n+1,1) # last column (n+1 column)
 
 
-Xtilda_ytilda_low = -Xy_low.dot(v_pq_qq_low).dot(v_pq_qq_low.T)
 
-X_low = Xy_low[:,0:n] # all but last column
-X_tilda_low = Xtilda_ytilda_low[:,0:n]
 
-print("Xtilda low: ", Xtilda_ytilda_low)
-
-y_tls_low = (X_low + X_tilda_low).dot(a_tls_low)
-print(y_tls_low.shape)
-
-##### Plot #####################################################
 plt.plot(x_center, y_high_n, '.')
 # plt.plot(x_center, y_low_n, 'x')
 #
