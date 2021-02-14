@@ -2,16 +2,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-n = 2
+n = 3
 
-center_col_list = [1, 5, 7]
-highest_row_list = [1, 3, 8]
+center_col_list = [96, 142, 184, 264, 353, 459, 542, 670, 750, 902, 990, 1154, 1286, 1452, 1678, 1872, 2078, 2312, 2530, 2710, 2903, 3189, 3204, 3376]
+highest_row_list = [2314, 2174, 2018, 1932, 1806, 1694, 1584, 1484, 1416, 1387, 1244, 1202, 1109, 880, 781, 739, 822, 1121, 1232, 1268, 1533, 1673, 1909, 2130]
 
 center_col_n = np.array(center_col_list).reshape((len(center_col_list),1))
 center_col_n_squared = np.square(center_col_n).reshape((len(center_col_list),1))
 highest_row_n = np.array(highest_row_list).reshape((len(center_col_list),1))
+b_coeffs = np.ones(shape=center_col_n_squared.shape)
 
-X = np.concatenate([center_col_n,center_col_n_squared],axis=1) # the design matrix
+X = np.concatenate([b_coeffs,center_col_n,center_col_n_squared],axis=1) # the design matrix
 print(X)
 
 Xy_high = np.concatenate([X, highest_row_n],axis=1)
@@ -35,7 +36,7 @@ y_tls_high = (X+Xt_high).dot(a_tls_high)
 print("y_tls_high", y_tls_high)
 
 plt.plot(center_col_list,highest_row_n,'.')
-plt.plot((X+Xt_high)[:,0], y_tls_high,'+')
+plt.plot((X)[:,1], y_tls_high,'+')
 
 plt.show()
 

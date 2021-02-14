@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-n = 2
+n = 3
 
 center_col_list = [1, 5, 7]
 highest_row_list = [1, 3, 8]
@@ -10,8 +10,10 @@ highest_row_list = [1, 3, 8]
 center_col_n = np.array(center_col_list).reshape((len(center_col_list),1))
 center_col_n_squared = np.square(center_col_n).reshape((len(center_col_list),1))
 highest_row_n = np.array(highest_row_list).reshape((len(center_col_list),1))
+b_coeffs = np.ones(shape=center_col_n_squared.shape)
 
-X = np.concatenate([center_col_n,center_col_n_squared],axis=1) # the design matrix
+
+X = np.concatenate([b_coeffs,center_col_n,center_col_n_squared],axis=1) # the design matrix
 print(X)
 
 Xy_high = np.concatenate([X, highest_row_n],axis=1)
@@ -35,7 +37,7 @@ y_tls_high = (X+Xt_high).dot(a_tls_high)
 print("y_tls_high", y_tls_high)
 
 plt.plot(center_col_list,highest_row_n,'.')
-plt.plot((X+Xt_high)[:,0], y_tls_high,'+')
+plt.plot((X+Xt_high)[:,1], y_tls_high,'+')
 
 plt.show()
 
