@@ -21,17 +21,17 @@ yp2 = 80
 yp3 = 80
 yp4 = 200
 
-# A1 = np.array([-x1, -y1, -1, 0, 0, 0, x1*xp1, y1*xp1, xp1],dtype=np.double)
-# A2 = np.array([0, 0, 0, -x1, -y1, -1, x1*yp1, y1*yp1, yp1],dtype=np.double)
-# A3 = np.array([-x2, -y2, -1, 0, 0, 0, x2*xp2, y2*xp2, xp2],dtype=np.double)
-# A4 = np.array([0, 0, 0, -x2, -y2, -1, x2*yp2, y2*yp2, yp2],dtype=np.double)
-# A5 = np.array([-x3, -y3, -1, 0, 0, 0, x3*xp3, y3*xp3, xp3],dtype=np.double)
-# A6 = np.array([0, 0, 0, -x3, -y3, -1, x3*yp3, y3*yp3, yp3],dtype=np.double)
-# A7 = np.array([-x4, -y4, -1, 0, 0, 0, x4*xp4, y4*xp4, xp4],dtype=np.double)
-# A8 = np.array([0, 0, 0, -x4, -y4, -1, x4*yp4, y4*yp4, yp4],dtype=np.double)
+A1 = np.array([-x1, -y1, -1, 0, 0, 0, x1*xp1, y1*xp1, xp1],dtype=np.double)
+A2 = np.array([0, 0, 0, -x1, -y1, -1, x1*yp1, y1*yp1, yp1],dtype=np.double)
+A3 = np.array([-x2, -y2, -1, 0, 0, 0, x2*xp2, y2*xp2, xp2],dtype=np.double)
+A4 = np.array([0, 0, 0, -x2, -y2, -1, x2*yp2, y2*yp2, yp2],dtype=np.double)
+A5 = np.array([-x3, -y3, -1, 0, 0, 0, x3*xp3, y3*xp3, xp3],dtype=np.double)
+A6 = np.array([0, 0, 0, -x3, -y3, -1, x3*yp3, y3*yp3, yp3],dtype=np.double)
+A7 = np.array([-x4, -y4, -1, 0, 0, 0, x4*xp4, y4*xp4, xp4],dtype=np.double)
+A8 = np.array([0, 0, 0, -x4, -y4, -1, x4*yp4, y4*yp4, yp4],dtype=np.double)
 
-# C = np.vstack([A1,A2,A3,A4,A5,A6,A7,A8])
-C = np.array([[1, 3, -4],[2,-5, 0],[-2,-6, 8]])
+C = np.vstack([A1,A2,A3,A4,A5,A6,A7,A8])
+# C = np.array([[1, 3, -4],[2,-5, 0],[-2,-6, 8]])
 # Built in functions
 # print(C.shape)
 rhs = np.zeros((C.shape[0],1),dtype=np.longdouble)
