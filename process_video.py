@@ -16,9 +16,11 @@ import cv2
 import math
 
 
-def main():
-    # cap = cv2.VideoCapture('Ball_travel_10fps.mp4')
-    cap = cv2.VideoCapture('Ball_travel_2_updated.mp4')
+def main(noisy):
+    if noisy == 0:
+        cap = cv2.VideoCapture('Ball_travel_10fps.mp4')
+    else:
+        cap = cv2.VideoCapture('Ball_travel_2_updated.mp4')
 
     highest_row_list = []
     lowest_row_list = []
@@ -99,7 +101,6 @@ def main():
     cap.release()
     cv2.destroyAllWindows()
 
-    print("hello          ")
 
     # Save lists to file
     the_filename = 'highest_row_list.txt'
@@ -124,4 +125,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main(0)
