@@ -17,8 +17,8 @@ import math
 
 
 def main():
-    cap = cv2.VideoCapture('Ball_travel_10fps.mp4')
-    # cap = cv2.VideoCapture('Ball_travel_2_updated.mp4')
+    # cap = cv2.VideoCapture('Ball_travel_10fps.mp4')
+    cap = cv2.VideoCapture('Ball_travel_2_updated.mp4')
 
     highest_row_list = []
     lowest_row_list = []
