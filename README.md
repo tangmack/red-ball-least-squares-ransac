@@ -8,3 +8,6 @@ Press "q" key to see all graphs.
 Instructions to run, Homography:
 Run homography.py
 Solution to Ax=0 will be printed to output.
+
+PDF report with written answers:
+Mack Tang 673 Homework 1.pdf
