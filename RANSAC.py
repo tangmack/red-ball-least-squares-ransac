@@ -1,3 +1,13 @@
+#!/usr/bin/python3
+
+# ========================================
+# ENPM673 Spring 2021: Perception for Autonomous Robotics
+#
+#
+# Author: Mack Tang (macktang@gmail.com)
+# ========================================
+# See Readme.md for instructions to run
+
 import matplotlib.pyplot as plt
 import numpy as np
 import random

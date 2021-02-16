@@ -2,12 +2,11 @@
 
 # ========================================
 # ENPM673 Spring 2021: Perception for Autonomous Robotics
-# Example script for getting started with OpenCV
+#
 #
 # Author: Mack Tang (macktang@gmail.com)
 # ========================================
-# Run as 'python3 process_video.py'
-# Press q for exit
+# See Readme.md for instructions to run
 
 
 import argparse

@@ -1,3 +1,12 @@
+#!/usr/bin/python3
+
+# ========================================
+# ENPM673 Spring 2021: Perception for Autonomous Robotics
+#
+#
+# Author: Mack Tang (macktang@gmail.com)
+# ========================================
+# See Readme.md for instructions to run
 
 from process_video import main
 from least_squares import f2

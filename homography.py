@@ -1,3 +1,13 @@
+#!/usr/bin/python3
+
+# ========================================
+# ENPM673 Spring 2021: Perception for Autonomous Robotics
+#
+#
+# Author: Mack Tang (macktang@gmail.com)
+# ========================================
+# See Readme.md for instructions to run
+
 import numpy as np
 import sys
 
@@ -73,8 +83,8 @@ for i in range(0,V.shape[1]): # for every column of U (every eigenvalue)
 # print(U)
 
 FinalCheck = U.dot(Sigma.dot(V))
-print(FinalCheck - C) # FinalCheck and C should be equal, because FinalCheck = C = SVD(C)
-print(np.max(FinalCheck - C)) # should be very close to zero
+# print(FinalCheck - C) # FinalCheck and C should be equal, because FinalCheck = C = SVD(C)
+# print(np.max(FinalCheck - C)) # should be very close to zero
 
 
 ############# Now that we have SVD, use it to find the pseudoinverse ############
@@ -86,11 +96,11 @@ print(np.max(FinalCheck - C)) # should be very close to zero
 #     print(x)
 #     print(C.dot(x))
 x = V[:,-1].reshape(-1,1)
-print(x)
-print(V.T)
+# print(x)
+# print(V.T)
 
-print("built in section")
-u, s, vh = np.linalg.svd(C, full_matrices=False)
+# print("built in section, check answer")
+# u, s, vh = np.linalg.svd(C, full_matrices=False)
 
 # print(u.shape)
 # print(s.shape)
@@ -99,8 +109,8 @@ u, s, vh = np.linalg.svd(C, full_matrices=False)
 # s = s.reshape(-1,1)
 # vh = vh.reshape(-1,1)
 
-x_b = vh.T[:,-1].reshape(-1,1)
-print(x_b)
+# x_b = vh.T[:,-1].reshape(-1,1)
+# print(x_b)
 # print(x_b)
 # print(C.dot(x_b))
 # FinalCheck_builtin = u.dot(s.dot(vh.T))
